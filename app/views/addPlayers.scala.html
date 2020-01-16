@@ -1,0 +1,69 @@
+@(message: String, style: String = "scala")
+@main("") {
+
+@defining(play.core.PlayVersion.current) { version =>
+
+<section id="top">
+  <div class="wrapper">
+      <h1>@message</h1>
+  </div>
+</section>
+
+<div id="content" class="wrapper doc">
+<article>
+
+    <form method="post" action="@routes.RestController.testPost())">
+        <input type="text" name="username" /><br/>
+        <input type="password" name="password" /><br/>
+
+        <input type="submit" value="testPost"/>
+    </form>
+
+  <h1>Enter player names:</h1>
+    <div>
+        Name:
+            <input type="text" placeholder="Enter 1st player's name..."
+                    id="textBoxID" onkeyup="success()">
+            <button id="button" onclick="submitName1()"  disabled>Submit</button>
+            <p id="demo"></p>
+    </div>
+    <div>
+        Name:
+        <input type="text" placeholder="Enter 2nd player's name..."
+        id="textBoxID2" onkeyup="success()">
+        <button id="button2" onclick="submitName2()" >Submit</button>
+        <p id="demo"></p>
+    </div>
+    <script>
+        function success() {
+            if(document.getElementById("textBoxID").value===""){
+                document.getElementById('button').disabled = true;
+            } else {
+                document.getElementById('button').disabled = false;
+            }
+
+        }
+
+        function submitName1() {
+            console.log("here")
+            let x = document.getElementById("textBoxID").value;
+            document.getElementById("demo").innerHTML = x;
+            document.getElementById("textBoxID").value = ""
+            window.locationhref = 'http://localhost:9000/onAddNewPlayerToGame/' + x
+            po
+        }
+        function submitName2() {
+            let x = document.getElementById("textBoxID2").value;
+            document.getElementById("demo").innerHTML = x;
+            document.getElementById("textBoxID2").value = ""
+            window.location.href = 'http://localhost:9000/onAddNewPlayerToGame/' + x
+        }
+    </script>
+    <br><br>
+    <button id="startQuestButton" onclick="window.location.href = 'http://localhost:9000/onStartGame';">Start Quest</button>
+    <button onclick="window.location.href = 'http://localhost:9000/onQuitGame';">Quit game</button>
+</article>
+
+</div>
+}
+}

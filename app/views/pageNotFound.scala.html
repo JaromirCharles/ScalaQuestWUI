@@ -1,0 +1,12 @@
+@(message: String)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+@main("") {
+    <h1 style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+        Sorry the requested route '@message' was not found
+    </h1>
+}
