@@ -1,16 +1,19 @@
 package controllers
 
+import de.scala_quest.GameState
 import javax.inject.Inject
 import javax.inject.Singleton
 import play.api.mvc._
 import de.scala_quest.controller.defaultImpl.Controller
+import de.scala_quest.view.Ui
 
-// inject controller
 @Singleton
 class RestController @Inject() (
       cc: ControllerComponents,
       serverCtrl: Controller,
-   ) extends AbstractController(cc) {
+   ) extends AbstractController(cc) with Ui {
+
+  serverCtrl.addObserver(this)
 
   def onStartGame: Action[AnyContent] = Action {
     serverCtrl.startGame()
@@ -47,7 +50,10 @@ class RestController @Inject() (
   }
 
   def testPost(): Action[AnyContent] = Action {
-    Ok("I received post data")
-    Ok("I received post data")
+    Ok(views.html.test("I received post data"))
+  }
+
+  override def update(updateData: GameState): Unit = {
+
   }
 }

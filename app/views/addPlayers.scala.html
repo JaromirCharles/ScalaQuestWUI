@@ -1,4 +1,7 @@
 @(message: String, style: String = "scala")
+
+
+
 @main("") {
 
 @defining(play.core.PlayVersion.current) { version =>
@@ -12,10 +15,8 @@
 <div id="content" class="wrapper doc">
 <article>
 
-    <form method="post" action="@routes.RestController.testPost())">
-        <input type="text" name="username" /><br/>
-        <input type="password" name="password" /><br/>
-
+    <form method="post" action="@routes.RestController.testPost()">
+        <input type="text" name="name" /><br/>
         <input type="submit" value="testPost"/>
     </form>
 
