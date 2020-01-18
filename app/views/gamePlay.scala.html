@@ -27,14 +27,20 @@
 
     <hr>
 
-    <h4>Question: @currentQuestion</h4> <!-- getPlayersCurrentQuestion() -->
+    <h2>Question: @currentQuestion</h2> <!-- getPlayersCurrentQuestion() -->
 
     <div>
-        @for(value <- currentAnswers) {
-            <form method="post" action="@routes.RestController.onProcessAnswer("1")">
-                <input type="submit" value="@value"/>
-            </form>
+        @for((ans, index) <- currentAnswers.zipWithIndex) {
+            <button type="text">@{index+1} : @ans</button>
+            <br>
         }
+        <br>
+        <form method="post" action="@routes.RestController.onProcessAnswer()">
+
+            <input type="text" name="answer" id="userInput" placeholder="Enter your answer..."/>
+            <input type="submit" value="Answer">
+        </form>
+        <br><br><br><br>
     </div>
 
     <script>

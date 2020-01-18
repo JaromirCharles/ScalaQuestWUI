@@ -9,14 +9,17 @@ GET     /                           controllers.HomeController.index
 # ScalaQuest controller controlling the game's semantics
 GET     /onNewGame                  controllers.RestController.onNewGame
 GET     /onQuitGame                 controllers.RestController.onQuitGame
-GET     /onStartGame                controllers.RestController.onStartGame
+POST     /onStartGame                controllers.RestController.onStartGame
 
 #GET    /onAddNewPlayerToGame/:name     controllers.RestController.onAddNewPlayerToGame(name)
 POST    /onAddNewPlayerToGame:name     controllers.RestController.onAddNewPlayerToGame(name)
 POST    /testPost:name              controllers.RestController.testPost(name)
+GET    /test                            controllers.RestController.test
+POST    /test                       controllers.RestController.doLogin
+POST    /onAddPlayers    controllers.RestController.onAddPlayers
 
 GET     /onGetRoundNr               controllers.RestController.onGetRoundNr
-POST    /onProcessAnswer:input            controllers.RestController.onProcessAnswer(input)
+POST    /onProcessAnswer           controllers.RestController.onProcessAnswer
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
@@ -28,4 +31,4 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 # Invalid URL
 GET     /$path<.*>                  controllers.PageNotFoundController.index(path)
-      
+
