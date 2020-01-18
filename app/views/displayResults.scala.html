@@ -1,0 +1,38 @@
+@import de.scala_quest.model.Player
+@(
+    message: String,
+    players: List[Player],
+    style: String = "scala"
+)
+
+@main("") {
+
+    @defining(play.core.PlayVersion.current) { version =>
+
+        <section id="top">
+            <div class="wrapper">
+                <h1>@message</h1>
+            </div>
+        </section>
+
+        <div id="content" class="wrapper doc">
+            <article>
+                @for(p <- players) {
+                    <h2>@p.name @p.points</h2>
+                    <h3>Correctly answered questions: @p.correctAnswers.size</h3>
+                    @for(q <- p.correctAnswers) {
+                        <li>@q.text</li>
+                    }
+                    <h3>Wrongly answered questions: @p.wrongAnswers.size</h3>
+                    @for(q <- p.wrongAnswers) {
+                        <li>@q.text. (Correct answer: @q.correctAnswer)</li>
+                    }
+                }
+
+                <br><br>
+                <button onclick="window.location.href = 'http://localhost:9000/onQuitGame';">Quit game</button>
+            </article>
+
+        </div>
+    }
+}

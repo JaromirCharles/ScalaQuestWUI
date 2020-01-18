@@ -1,4 +1,4 @@
-@(message: String, style: String = "scala")
+@(message: String, player1: String, style: String = "scala")
 
 
 
@@ -15,12 +15,16 @@
 <div id="content" class="wrapper doc">
 <article>
 
-    <form method="post" action="@routes.RestController.testPost()">
-        <input type="text" name="name" /><br/>
-        <input type="submit" value="testPost"/>
+  <h1>Enter player names:</h1>
+    <form method="post" action="@routes.RestController.onAddNewPlayerToGame("Jaromir")">
+        Name: <input type="text" placeholder="@player1"/>
+        <input type="submit" value="Add Player"/>
+    </form>
+    <form method="post" action="@routes.RestController.onAddNewPlayerToGame("Julian")">
+        Name: <input type="text" placeholder="@player1"/>
+        <input type="submit" value="Add Player"/>
     </form>
 
-  <h1>Enter player names:</h1>
     <div>
         Name:
             <input type="text" placeholder="Enter 1st player's name..."
@@ -36,6 +40,10 @@
         <p id="demo"></p>
     </div>
     <script>
+
+        function getName() {
+            return @player1
+        }
         function success() {
             if(document.getElementById("textBoxID").value===""){
                 document.getElementById('button').disabled = true;
@@ -50,7 +58,7 @@
             let x = document.getElementById("textBoxID").value;
             document.getElementById("demo").innerHTML = x;
             document.getElementById("textBoxID").value = ""
-            window.locationhref = 'http://localhost:9000/onAddNewPlayerToGame/' + x
+            window.location.href = 'http://localhost:9000/onAddNewPlayerToGame/' + x
             po
         }
         function submitName2() {

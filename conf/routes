@@ -11,10 +11,12 @@ GET     /onNewGame                  controllers.RestController.onNewGame
 GET     /onQuitGame                 controllers.RestController.onQuitGame
 GET     /onStartGame                controllers.RestController.onStartGame
 
-GET    /onAddNewPlayerToGame/:name     controllers.RestController.onAddNewPlayerToGame(name)
-POST    /testPost                   controllers.RestController.testPost()
+#GET    /onAddNewPlayerToGame/:name     controllers.RestController.onAddNewPlayerToGame(name)
+POST    /onAddNewPlayerToGame:name     controllers.RestController.onAddNewPlayerToGame(name)
+POST    /testPost:name              controllers.RestController.testPost(name)
 
 GET     /onGetRoundNr               controllers.RestController.onGetRoundNr
+POST    /onProcessAnswer:input            controllers.RestController.onProcessAnswer(input)
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count

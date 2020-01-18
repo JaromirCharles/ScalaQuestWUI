@@ -1,4 +1,13 @@
-@(message: String, style: String = "scala")
+@(
+    message: String,
+    roundNr: Int,
+    playersName: String,
+    playersPoints: String,
+    currentQuestion: Option[String],
+    currentAnswers: List[String],
+    style: String = "scala"
+)
+
 @main("") {
 
 @defining(play.core.PlayVersion.current) { version =>
@@ -12,19 +21,20 @@
 <div id="content" class="wrapper doc">
 <article>
 
-    <h1>Round 1</h1> <!-- getRoundNr()-->
+    <h1>Round @roundNr</h1> <!-- getRoundNr()-->
 
-    <h2>Player's name (0 pts)</h2> <!-- getPlayerInfo()-->
+    <h2>@playersName (@playersPoints pts)</h2> <!-- getPlayerInfo()-->
 
     <hr>
 
-    <h4>Question: </h4> <!-- getPlayersCurrentQuestion() -->
+    <h4>Question: @currentQuestion</h4> <!-- getPlayersCurrentQuestion() -->
 
     <div>
-        <h5>getAnswers()</h5> <!-- getPlayersCurrentAnswers -->
-@*        <!--@for(ans <- answers) {*@
-@*            <h5>@ans</h5>*@
-@*        }-->*@
+        @for(value <- currentAnswers) {
+            <form method="post" action="@routes.RestController.onProcessAnswer("1")">
+                <input type="submit" value="@value"/>
+            </form>
+        }
     </div>
 
     <script>
