@@ -5,7 +5,7 @@
     @defining(play.core.PlayVersion.current) { version =>
 
     <section id="top">
-      <div class="wrapper">
+      <div align="center" class="wrapper">
           <h1>@message</h1>
       </div>
     </section>
@@ -13,16 +13,25 @@
     <div align="center" id="content" class="wrapper doc">
     <article>
 
-      <h3>Enter player names:</h3>
         <form method="post" action="@routes.RestController.onStartGame()">
             <label for="player2">Player1:</label>
-            <input type="text" name="player1" id="player1" autofocus="autofocus" autocomplete="off" placeholder="Enter name..."/>
+            <input id="t1" type="text" onkeyup="enableButton()" name="player1" id="player1" autofocus="autofocus" autocomplete="off" placeholder="Enter name..."/>
             <br><br>
             <label for="player2">Player2:</label>
-            <input type="text" name="player2" id="player2" autocomplete="off" placeholder="Enter name..."/>
+            <input id="t2" type="text" onkeyup="enableButton()" name="player2" id="player2" autocomplete="off" placeholder="Enter name..."/>
             <br><br>
-            <input style="background-color: lightskyblue" type="submit" value="Start Game">
+            <button id="button1" style="background-color: lightskyblue" type="submit" value="Start Game" disabled>Start Game</button>
         </form>
+        <script>
+            function enableButton() {
+                if(document.getElementById("t1").value != "" && document.getElementById("t2").value != ""){
+                    document.getElementById("button1").disabled = false;
+                } else {
+                    document.getElementById("button1").disabled = true;
+                }
+
+            }
+        </script>
 
     </article>
     </div>
