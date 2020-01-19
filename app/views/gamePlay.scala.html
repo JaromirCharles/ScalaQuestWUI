@@ -10,50 +10,46 @@
 
 @main("") {
 
-@defining(play.core.PlayVersion.current) { version =>
+    @defining(play.core.PlayVersion.current) { version =>
 
-<section id="top">
-  <div class="wrapper">
-      <h1>@message</h1>
-  </div>
-</section>
+    <section id="top">
+      <div class="wrapper">
+          <h1>@message</h1>
+      </div>
+    </section>
 
-<div id="content" class="wrapper doc">
-<article>
-
-    <h1>Round @roundNr</h1> <!-- getRoundNr()-->
-
-    <h2>@playersName (@playersPoints pts)</h2> <!-- getPlayerInfo()-->
-
-    <hr>
-
-    <h2>Question: @currentQuestion</h2> <!-- getPlayersCurrentQuestion() -->
-
-    <div>
-        @for((ans, index) <- currentAnswers.zipWithIndex) {
-            <button type="text">@{index+1} : @ans</button>
+    <div align="center" id="content" class="wrapper doc">
+        <article>
+            <strong>Round @roundNr</strong> <!-- getRoundNr()-->
             <br>
-        }
-        <br>
-        <form method="post" action="@routes.RestController.onProcessAnswer()">
+            <em>@playersName (@playersPoints pts)</em> <!-- getPlayerInfo()-->
 
-            <input type="text" name="answer" id="userInput" placeholder="Enter your answer..."/>
-            <input type="submit" value="Answer">
-        </form>
-        <br><br><br><br>
+            <hr>
+
+            <label><strong>@currentQuestion</strong></label> <!-- getPlayersCurrentQuestion() -->
+
+            <div>
+                @for((ans, index) <- currentAnswers.zipWithIndex) {
+                    <!--<button type="text">@{index+1}) @ans</button>-->
+                    <label>@{index+1}) @ans</label>
+                    <br>
+                }
+                <br>
+                <form method="post" action="@routes.RestController.onProcessAnswer()">
+                    <input type="text" name="answer" id="userInput"
+                    autocomplete="off" autofocus="autofocus" placeholder="Enter your answer..."/>
+                    <input type="submit" value="Answer">
+                </form>
+            </div>
+
+            <hr>
+
+            <button style="background-color: lightskyblue"
+                    onclick="window.location.href = 'http://localhost:9000/onQuitGame';"
+            >
+                Quit game
+            </button>
+        </article>
     </div>
-
-    <script>
-        function getAnswers() {
-            <!-- answers onClick if more rounds send play_game, otherwise send show results-->
-        }
-    </script>
-
-    <hr>
-
-    <button onclick="window.location.href = 'http://localhost:9000/onQuitGame';">Quit game</button>
-</article>
-
-</div>
-}
+    }
 }

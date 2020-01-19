@@ -2,76 +2,29 @@
 
 @main("") {
 
-@defining(play.core.PlayVersion.current) { version =>
+    @defining(play.core.PlayVersion.current) { version =>
 
-<section id="top">
-  <div class="wrapper">
-      <h1>@message</h1>
-  </div>
-</section>
+    <section id="top">
+      <div class="wrapper">
+          <h1>@message</h1>
+      </div>
+    </section>
 
-<div id="content" class="wrapper doc">
-<article>
+    <div align="center" id="content" class="wrapper doc">
+    <article>
 
-  <h1>Enter player names:</h1>
-    <form method="post" action="@routes.RestController.onStartGame()">
-        <label for="player2">Player1:</label>
-        <input type="text" name="player1" id="player1" placeholder="Enter player1 name..."/>
-        <br>
-        <label for="player2">Player2:</label>
-        <input type="text" name="player2" id="player2" placeholder="Enter player2 name..."/>
-        <br><br>
-        <input type="submit" value="Start Game">
-    </form>
+      <h3>Enter player names:</h3>
+        <form method="post" action="@routes.RestController.onStartGame()">
+            <label for="player2">Player1:</label>
+            <input type="text" name="player1" id="player1" autofocus="autofocus" autocomplete="off" placeholder="Enter name..."/>
+            <br><br>
+            <label for="player2">Player2:</label>
+            <input type="text" name="player2" id="player2" autocomplete="off" placeholder="Enter name..."/>
+            <br><br>
+            <input style="background-color: lightskyblue" type="submit" value="Start Game">
+        </form>
 
-    <div>
-        Name:
-            <input type="text" placeholder="Enter 1st player's name..."
-                    id="textBoxID" onkeyup="success()">
-            <button id="button" onclick="submitName1()"  disabled>Submit</button>
-            <p id="demo"></p>
+    </article>
     </div>
-    <div>
-        Name:
-        <input type="text" placeholder="Enter 2nd player's name..."
-        id="textBoxID2" onkeyup="success()">
-        <button id="button2" onclick="submitName2()" >Submit</button>
-        <p id="demo"></p>
-    </div>
-    <script>
-
-        function getName() {
-            return @player1
-        }
-        function success() {
-            if(document.getElementById("textBoxID").value===""){
-                document.getElementById('button').disabled = true;
-            } else {
-                document.getElementById('button').disabled = false;
-            }
-
-        }
-
-        function submitName1() {
-            console.log("here")
-            let x = document.getElementById("textBoxID").value;
-            document.getElementById("demo").innerHTML = x;
-            document.getElementById("textBoxID").value = ""
-            window.location.href = 'http://localhost:9000/onAddNewPlayerToGame/' + x
-            po
-        }
-        function submitName2() {
-            let x = document.getElementById("textBoxID2").value;
-            document.getElementById("demo").innerHTML = x;
-            document.getElementById("textBoxID2").value = ""
-            window.location.href = 'http://localhost:9000/onAddNewPlayerToGame/' + x
-        }
-    </script>
-    <br><br>
-    <button id="startQuestButton" onclick="window.location.href = 'http://localhost:9000/onStartGame';">Start Quest</button>
-    <button onclick="window.location.href = 'http://localhost:9000/onQuitGame';">Quit game</button>
-</article>
-
-</div>
-}
+    }
 }

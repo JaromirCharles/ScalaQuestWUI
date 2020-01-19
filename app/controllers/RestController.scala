@@ -76,7 +76,7 @@ class RestController @Inject() (
 
   def onQuitGame: Action[AnyContent] = Action {
     serverCtrl.onQuit()
-    Ok(views.html.test("Thanks for playing ScalaQuest..."))
+    Ok("Thanks for playing ScalaQuest...")
   }
 
   def onNewGame: Action[AnyContent] = Action {
@@ -102,8 +102,8 @@ class RestController @Inject() (
   def onProcessAnswer: Action[AnyContent] = Action {implicit request =>
     val userInput = answerForm.bindFromRequest.get
 
-    Ok(s"ans1: '${userInput.answer}'")
-    serverCtrl.processAnswer(1)
+    //Ok(s"ans1: '${userInput.answer}'")
+    serverCtrl.processAnswer(userInput.answer.toInt)
 
     val roundNr = serverCtrl.getRoundNr()
     val (playersName, playersPoints) = serverCtrl.getPlayerInfo()
@@ -116,7 +116,7 @@ class RestController @Inject() (
     println("currentQuestion: " + currentQuestion)
     println("currentAnswers: " + currentAnswers)
 
-    if(roundNr < 3) {
+    if(roundNr < 4) {
       Ok(views.html.gamePlay(
         "ScalaQuest",
         roundNr,
@@ -129,8 +129,23 @@ class RestController @Inject() (
       )
     } else {
       val players: List[Player] = serverCtrl.getPlayers()
-      Ok(views.html.displayResults("Results", players, style = "scala"))
+      val winner = getWinner(players)
+      Ok(views.html.displayResults("Results", players, winner, style = "scala"))
     }
+  }
+
+   def getWinner(players: List[Player]): String = {
+    val sortedAscList = players.sortBy(_.points)
+    var winner: String = sortedAscList.last.name
+    val highestScore = sortedAscList.last.points
+    // Check if any other player has same high score
+    sortedAscList.dropRight(1).foreach(p => {
+      if (p.points == highestScore) {
+        winner += s", ${p.name}"
+      }
+    })
+
+    s"$winner"
   }
 
   def onGetRoundNr(): Action[AnyContent] = Action {

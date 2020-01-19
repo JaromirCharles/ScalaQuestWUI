@@ -2,6 +2,7 @@
 @(
     message: String,
     players: List[Player],
+    winner: String,
     style: String = "scala"
 )
 
@@ -15,24 +16,34 @@
             </div>
         </section>
 
-        <div id="content" class="wrapper doc">
+        <div align="center" id="content" class="wrapper doc">
             <article>
                 @for(p <- players) {
-                    <h2>@p.name @p.points</h2>
-                    <h3>Correctly answered questions: @p.correctAnswers.size</h3>
+                    <h3>@p.name (@p.points pts)</h3>
+                    <p style="color:green;"><b>Correctly answered questions:</b> @p.correctAnswers.size</p>
                     @for(q <- p.correctAnswers) {
-                        <li>@q.text</li>
+                        <p>@q.text</p>
                     }
-                    <h3>Wrongly answered questions: @p.wrongAnswers.size</h3>
+                    <p style="color:red;"><b>Wrongly answered questions:</b> @p.wrongAnswers.size</p>
                     @for(q <- p.wrongAnswers) {
-                        <li>@q.text. (Correct answer: @q.correctAnswer)</li>
+
+                        @for(a <- q.answers) {
+                            @if(a.id == q.correctAnswer) {
+                                <p>@q.text. (Correct answer: @a.text)</p>
+                            }
+                        }
                     }
+                    <br><hr><br>
                 }
-
-                <br><br>
-                <button onclick="window.location.href = 'http://localhost:9000/onQuitGame';">Quit game</button>
+                <!-- display winner -->
+                <p>Congratulations <b>@winner</b>!</p>
+                <button
+                    onclick="window.location.href = 'http://localhost:9000/onQuitGame';"
+                    style="background-color: lightskyblue"
+                >
+                    Quit game
+                </button>
             </article>
-
         </div>
     }
 }
